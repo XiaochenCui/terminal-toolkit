@@ -1,0 +1,78 @@
+#!/usr/bin/env bash
+
+set -o xtrace
+set -o errexit
+set -o nounset
+
+get_env() {
+    # "-s" means "print the kernel name", it's the same as "--kernel-name", which
+    # not supported by macos.
+    OS=$(uname -s)
+
+    echo "Your operation system is ${OS}\n"
+}
+
+sync() {
+    echo "kernal: ${OS}"
+
+    # Upload if the platform is "Darwin"
+    [[ $OS == "Darwin" ]] && upload
+
+    # Download if the platform is "Linux"
+    [[ $OS == "Linux" ]] && download
+}
+
+upload() {
+    echo "Start synchronizing..."
+
+    # Check if there are uncommitted changes.
+    #
+    # reference:
+    # https://stackoverflow.com/questions/3878624/how-do-i-programmatically-determine-if-there-are-uncommitted-changes
+    git diff-index --quiet HEAD -- ||
+        echo "Workspace unclean, commit staff..."
+    git add --all &&
+        git commit -m "update"
+
+    git config pull.rebase false # merge (the default strategy)
+    git pull
+
+    git push
+}
+
+download() {
+    cd ~/terminal-toolkit
+
+    git fetch --all
+    git reset --hard origin/master
+}
+
+update_bin() {
+    BINARY_DIR="$HOME/bin"
+
+    # Create bin directory if not exist.
+    [[ -d "$BINARY_DIR" ]] || mkdir "$BINARY_DIR"
+
+    ln -sf $HOME/terminal-toolkit/entry/sync-toolkit "$BINARY_DIR"/sync-toolkit
+
+    SCRIPT_DIR=${HOME}/terminal-toolkit/scripts
+
+    case $OS in
+    Linux)
+        cp ${SCRIPT_DIR}/linux/* $HOME/bin
+        ;;
+    Darwin)
+        cp ${SCRIPT_DIR}/darwin/* $HOME/bin
+        ;;
+    *)
+        echo "Not support your system($OS) for now"
+        exit 2
+        ;;
+    esac
+}
+
+get_env
+
+sync
+
+update_bin

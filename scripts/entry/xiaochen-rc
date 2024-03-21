@@ -1,0 +1,41 @@
+export PATH=$HOME/bin:$PATH
+
+general() {
+    # enable UTF-8 support
+    # 
+    # reference:
+    # https://unix.stackexchange.com/questions/303712/how-can-i-enable-utf-8-support-in-the-linux-console
+    export LC_ALL=en_US.UTF-8
+    export LANG=en_US.UTF-8
+    export LANGUAGE=en_US.UTF-8
+}
+
+zsh() {
+    # HSTR config
+    alias hh=hstr          # hh to be alias for hstr
+    setopt histignorespace # skip cmds w/ leading space from history
+    export HSTR_CONFIG=hicolor,keywords-matching,raw-history-view,prompt-bottom
+    bindkey -s "\C-r" "\C-a hstr -- \C-j" # bind hstr to Ctrl-r (for Vi mode check doc
+
+    # zsh prompt config
+    ret_status="%(?:%{$fg_bold[green]%}🍚 :%{$fg_bold[red]%}🍔 )"
+    PROMPT='${ret_status}$(virtualenv_prompt_info) %{$fg[cyan]%}%c%{$reset_color%} $(git_prompt_info)'
+}
+
+bash() {
+    echo "I don't support bash yet"
+    exit 1
+}
+
+case $PROFILE_SHELL in
+zsh)
+    zsh
+    ;;
+bash)
+    bash
+    ;;
+esac
+
+
+# set language to english
+export LC_ALL=C
