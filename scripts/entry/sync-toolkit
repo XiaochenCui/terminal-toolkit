@@ -29,10 +29,13 @@ upload() {
     #
     # reference:
     # https://stackoverflow.com/questions/3878624/how-do-i-programmatically-determine-if-there-are-uncommitted-changes
-    git diff-index --quiet HEAD -- ||
+    #
+    # Check the exit status of the command
+    if ! git diff-index --quiet HEAD --; then
         echo "Workspace unclean, commit staff..."
-    git add --all &&
+        git add --all
         git commit -m "update"
+    fi
 
     git config pull.rebase false # merge (the default strategy)
     git pull
