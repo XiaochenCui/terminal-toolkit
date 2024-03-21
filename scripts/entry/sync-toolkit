@@ -15,11 +15,20 @@ get_env() {
 sync() {
     echo "kernal: ${OS}"
 
-    # Upload if the platform is "Darwin"
-    [[ $OS == "Darwin" ]] && upload
-
-    # Download if the platform is "Linux"
-    [[ $OS == "Linux" ]] && download
+    case $OS in
+    Darwin)
+        # Upload if the platform is "Darwin"
+        upload
+        ;;
+    Linux)
+        # Download if the platform is "Linux"
+        download
+        ;;
+    *)
+        echo "Not support your system($OS) for now"
+        exit 2
+        ;;
+    esac
 }
 
 upload() {
