@@ -71,10 +71,10 @@ update_bin() {
 
     case $OS in
     Linux)
-        cp ${SCRIPT_DIR}/linux/* $HOME/bin
+        # cp ${SCRIPT_DIR}/linux/* $HOME/bin
         ;;
     Darwin)
-        cp ${SCRIPT_DIR}/darwin/* $HOME/bin
+        # cp ${SCRIPT_DIR}/darwin/* $HOME/bin
         ;;
     *)
         echo "Not support your system($OS) for now"
