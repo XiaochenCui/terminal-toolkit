@@ -45,7 +45,7 @@ from oauth2client.tools import argparser, run_flow
 # section end
 # ================================================================
 
-SECRET_DIR = "/Users/cuixiaochen/GoogleDrive/clutter/"
+SECRET_DIR = "/Users/cuixiaochen/GoogleDrive/clutter/secret"
 CLIENT_SECRETS_FILE = os.path.join(SECRET_DIR, "client_secrets_desktop.json")
 CREDENTIALS_FILE = os.path.join(SECRET_DIR, "youtube-credentials.json")
 
