@@ -27,6 +27,8 @@ bash() {
     exit 1
 }
 
+general
+
 case $PROFILE_SHELL in
 zsh)
     zsh
@@ -35,7 +37,3 @@ bash)
     bash
     ;;
 esac
-
-
-# set language to english
-export LC_ALL=C

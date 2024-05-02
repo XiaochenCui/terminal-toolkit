@@ -10,8 +10,8 @@ import common
 import googleapiclient
 import httplib2
 
-UPLOAD_QUEUE_DIR = "/Volumes/xiaochen/life_videos/upload_queue"
-UPLOAD_SUCCESS_DIR = "/Volumes/xiaochen/life_videos/uploaded"
+UPLOAD_QUEUE_DIR = "/Volumes/CUI-2024/life_videos/upload_queue"
+UPLOAD_SUCCESS_DIR = "/Volumes/CUI-2024/life_videos/uploaded"
 
 # Always retry when an apiclient.errors.HttpError with one of these status
 # codes is raised.

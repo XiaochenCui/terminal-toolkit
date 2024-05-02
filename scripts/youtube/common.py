@@ -1,17 +1,16 @@
 #!/usr/bin/env python3
 
 # requirement actions:
-#   1. pip3 install --upgrade google-api-python-client google-auth-httplib2 google-auth-oauthlib
-#   2. pip3 install --upgrade oauth2client
-#   3. setup profile in "OAuth consent screen" (https://console.cloud.google.com/apis/credentials/consent)
+#   1. pip3 install --upgrade google-api-python-client google-auth-httplib2 google-auth-oauthlib oauth2client
+#   2. setup profile in "OAuth consent screen" (https://console.cloud.google.com/apis/credentials/consent)
 #       - User Type: External
-#   4. add myself to "Test users" (https://console.cloud.google.com/apis/credentials/consent)
+#   3. add myself to "Test users" (https://console.cloud.google.com/apis/credentials/consent)
 #       - User Info: jcnlcxc.new@gmail.com
-#   5. create a credential in "OAuth 2.0 Client IDs" (https://console.cloud.google.com/apis/credentials)
+#   4. create a credential in "OAuth 2.0 Client IDs" (https://console.cloud.google.com/apis/credentials)
 #       - click "Create Credentials" -> "OAuth client ID"
 #       - Application type: Desktop app
-#   6. download the credential file and save it to "client_secrets_desktop.json"
-#   7. enable "YouTube Data API v3" (https://console.cloud.google.com/apis/library/youtube.googleapis.com)
+#   5. download the credential file and save it to "client_secrets_desktop.json"
+#   6. enable "YouTube Data API v3" (https://console.cloud.google.com/apis/library/youtube.googleapis.com)
 #
 # critical api:
 #   - https://developers.google.com/youtube/v3/docs/search/list
@@ -45,7 +44,7 @@ from oauth2client.tools import argparser, run_flow
 # section end
 # ================================================================
 
-SECRET_DIR = "/Users/cuixiaochen/GoogleDrive/clutter/secret"
+SECRET_DIR = "/Users/xiaochencui/GoogleDrive/clutter/secret"
 CLIENT_SECRETS_FILE = os.path.join(SECRET_DIR, "client_secrets_desktop.json")
 CREDENTIALS_FILE = os.path.join(SECRET_DIR, "youtube-credentials.json")
 

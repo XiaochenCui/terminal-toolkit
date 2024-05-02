@@ -4,6 +4,8 @@ set -o xtrace
 set -o errexit
 set -o nounset
 
+TOOLKIT_DIR="$HOME/code/terminal-toolkit"
+
 get_env() {
     # "-s" means "print the kernel name", it's the same as "--kernel-name", which
     # not supported by macos.
@@ -53,7 +55,7 @@ upload() {
 }
 
 download() {
-    cd ~/terminal-toolkit
+    cd $TOOLKIT_DIR
 
     git fetch --all
     git reset --hard origin/master
@@ -65,22 +67,7 @@ update_bin() {
     # Create bin directory if not exist.
     [[ -d "$BINARY_DIR" ]] || mkdir "$BINARY_DIR"
 
-    ln -sf $HOME/terminal-toolkit/entry/sync-toolkit "$BINARY_DIR"/sync-toolkit
-
-    SCRIPT_DIR=${HOME}/terminal-toolkit/scripts
-
-    case $OS in
-    Linux)
-        # cp ${SCRIPT_DIR}/linux/* $HOME/bin
-        ;;
-    Darwin)
-        # cp ${SCRIPT_DIR}/darwin/* $HOME/bin
-        ;;
-    *)
-        echo "Not support your system($OS) for now"
-        exit 2
-        ;;
-    esac
+    ln -sf $TOOLKIT_DIR/entry/sync-toolkit "$BINARY_DIR"/sync-toolkit
 }
 
 get_env
