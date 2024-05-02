@@ -62,7 +62,7 @@ download() {
 }
 
 update_rc() {
-    ln -sf $TOOLKIT_DIR/entry/xiaochen-rc "$HOME"/.xiaochen-rc
+    ln -sf $TOOLKIT_DIR/scripts/entry/xiaochen-rc "$HOME"/.xiaochen-rc
 }
 
 update_bin() {
@@ -71,7 +71,7 @@ update_bin() {
     # Create bin directory if not exist.
     [[ -d "$BINARY_DIR" ]] || mkdir "$BINARY_DIR"
 
-    ln -sf $TOOLKIT_DIR/entry/sync-toolkit "$BINARY_DIR"/sync-toolkit
+    ln -sf $TOOLKIT_DIR/scripts/entry/sync-toolkit "$BINARY_DIR"/sync-toolkit
 }
 
 get_env
