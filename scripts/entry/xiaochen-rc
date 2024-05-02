@@ -29,11 +29,13 @@ bash() {
 
 general
 
-case $PROFILE_SHELL in
-zsh)
+$SHELL_PRODUCT=$(echo $0
+
+case $SHELL_PRODUCT in
+-zsh)
     zsh
     ;;
-bash)
+-bash)
     bash
     ;;
 esac
