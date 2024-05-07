@@ -8,6 +8,9 @@ general() {
     export LC_ALL=en_US.UTF-8
     export LANG=en_US.UTF-8
     export LANGUAGE=en_US.UTF-8
+
+    # Add "z" command, used to quickly jump to the directory.
+    source "$HOME"/code/terminal-toolkit/scripts/entry/z.sh
 }
 
 zsh() {
