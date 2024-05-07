@@ -2,7 +2,9 @@
 
 set -o xtrace
 set -o errexit
-set -o nounset
+
+# We allow the use of undefined variables, otherwise, some scripts will not work.
+# set -o nounset
 
 TOOLKIT_DIR="$HOME/code/terminal-toolkit"
 
