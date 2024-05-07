@@ -66,12 +66,16 @@ update_rc() {
 }
 
 update_bin() {
-    BINARY_DIR="$HOME/bin"
+    BINARY_DIR="$HOME"/bin
 
     # Create bin directory if not exist.
     [[ -d "$BINARY_DIR" ]] || mkdir "$BINARY_DIR"
 
+    # "sync-toolkit" command, used to synchronize the toolkit.
     ln -sf $TOOLKIT_DIR/scripts/entry/sync-toolkit "$BINARY_DIR"/sync-toolkit
+
+    # "z" command, used to quickly jump to the directory.
+    source "$HOME"/code/terminal-toolkit/scripts/entry/z.sh
 }
 
 get_env
