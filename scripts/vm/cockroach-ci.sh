@@ -33,8 +33,9 @@ cmake -DCMAKE_INSTALL_PREFIX=$LIB_DIR ..
 make
 make install
 
-echo "$LIB_DIR" | sudo tee /etc/ld.so.conf.d/local.conf
+echo "$LIB_DIR/lib" | sudo tee /etc/ld.so.conf.d/local.conf
 sudo ldconfig
+ldconfig -p | grep resolv_wrapper
 
 cd $WORKSPACE
 rm -rf cockroach
