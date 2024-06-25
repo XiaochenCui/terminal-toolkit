@@ -12,10 +12,29 @@ cd $WORKSPACE
 wget https://github.com/bazelbuild/bazelisk/releases/download/v1.20.0/bazelisk-linux-amd64
 chmod +x bazelisk-linux-amd64
 sudo ln -sf $WORKSPACE/bazelisk-linux-amd64 /usr/local/bin/bazel
+
 sudo apt-get install -y gcc
+sudo apt-get install -y cmake
 
 # https://stackoverflow.com/questions/73529401/cannot-execute-cc1plus-execvp-no-such-file-or-directory
+# handle the error: "cannot execute cc1plus: execvp: No such file or directory"
 sudo apt-get install -y --reinstall g++-13-x86-64-linux-gnu
+
+cd $WORKSPACE
+rm -rf resolv_wrapper
+git clone https://git.samba.org/resolv_wrapper.git
+
+cd $WORKSPACE/resolv_wrapper
+mkdir build
+cd build
+LIB_DIR=$HOME/local/libresolv_wrapper
+mkdir -p $LIB_DIR
+cmake -DCMAKE_INSTALL_PREFIX=$LIB_DIR ..
+make
+make install
+
+echo "$LIB_DIR" | sudo tee /etc/ld.so.conf.d/local.conf
+sudo ldconfig
 
 cd $WORKSPACE
 rm -rf cockroach
