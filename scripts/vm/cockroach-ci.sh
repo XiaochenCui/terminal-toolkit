@@ -37,6 +37,13 @@ echo "$LIB_DIR/lib" | sudo tee /etc/ld.so.conf.d/local.conf
 sudo ldconfig
 ldconfig -p | grep resolv_wrapper
 
+# If the gcc use "ld.gold" as the linker, if may doesn't work with ldconfig.
+# So we need to copy the library to /usr/lib manually.
+#
+# UPDATE: the following approaches don't work.
+# sudo cp $LIB_DIR/lib/* /usr/lib/
+# sudo cp -r ~/local/libresolv_wrapper/lib/* /usr/lib
+
 cd $WORKSPACE
 rm -rf cockroach
 git clone --recurse-submodules --depth 1 --branch debug https://github.com/XiaochenCui/cockroach.git

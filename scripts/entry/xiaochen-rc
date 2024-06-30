@@ -11,6 +11,9 @@ general() {
 
     # Add "z" command, used to quickly jump to the directory.
     source "$HOME"/code/terminal-toolkit/scripts/entry/z.sh
+
+    # Add binary path: golang bianries
+    export PATH=$PATH:$HOME/go/bin
 }
 
 zsh() {
