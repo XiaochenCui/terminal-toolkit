@@ -62,6 +62,8 @@ XIAOCHEN_RC="$HOME"/code/terminal-toolkit/scripts/entry/xiaochen-rc
 
 # insert xiaochen-rc to .zshrc
 if ! grep -q "$XIAOCHEN_RC" "$HOME"/.zshrc; then
+  echo "" >> "$HOME"/.zshrc
+  echo "# activate xiaochen-rc" >> "$HOME"/.zshrc
   echo "source $XIAOCHEN_RC" >> "$HOME"/.zshrc
 fi
 

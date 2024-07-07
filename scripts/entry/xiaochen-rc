@@ -32,8 +32,8 @@ zsh() {
 }
 
 bash() {
-    echo "I don't support bash yet"
-    exit 1
+    # echo "I don't support bash yet"
+    # exit 1
 }
 
 general
