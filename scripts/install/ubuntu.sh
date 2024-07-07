@@ -4,8 +4,10 @@
 
 set -o xtrace
 set -o errexit
-set -o nounset
 set -o pipefail
+
+# we allow unset variables for the sick of "z.sh"
+# set -o nounset
 
 sudo apt-get update -y
 
