@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+# wget -O - https://raw.githubusercontent.com/XiaochenCui/terminal-toolkit/main/scripts/vm/cockroach-ci.sh | bash
+
 set -o xtrace
 set -o errexit
 set -o nounset
@@ -13,6 +15,7 @@ wget https://github.com/bazelbuild/bazelisk/releases/download/v1.20.0/bazelisk-l
 chmod +x bazelisk-linux-amd64
 sudo ln -sf $WORKSPACE/bazelisk-linux-amd64 /usr/local/bin/bazel
 
+sudo apt-get update -y
 sudo apt-get install -y gcc
 sudo apt-get install -y cmake
 
