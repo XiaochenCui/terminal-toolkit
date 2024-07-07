@@ -32,6 +32,7 @@ zsh() {
 }
 
 bash() {
+    # we cannot leave the function empty, otherwise it will throw an error
     true
 }
 
