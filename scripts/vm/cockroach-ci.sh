@@ -7,7 +7,7 @@ set -o errexit
 set -o nounset
 set -o pipefail
 
-WORKSPACE=$HOME/code
+WORKSPACE=/mnt/disks/medium/code
 mkdir -p $WORKSPACE
 
 cd $WORKSPACE
