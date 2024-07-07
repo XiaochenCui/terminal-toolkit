@@ -1,6 +1,10 @@
 #!/usr/bin/env bash
 
-# wget -O - https://raw.githubusercontent.com/XiaochenCui/terminal-toolkit/main/scripts/vm/mount-disk.sh | bash
+# ========================================
+# Usage
+# ========================================
+
+# wget --no-cache  -O - https://raw.githubusercontent.com/XiaochenCui/terminal-toolkit/main/scripts/vm/mount-disk.sh | bash
 
 set -o xtrace
 set -o errexit
