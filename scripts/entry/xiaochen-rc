@@ -19,7 +19,8 @@ general() {
     export PATH=$PATH:$HOME/go/bin
 }
 
-zsh() {
+# The function name should not conflict with any command.
+xiaochen_zsh() {
     # HSTR config
     alias hh=hstr          # hh to be alias for hstr
     setopt histignorespace # skip cmds w/ leading space from history
@@ -31,7 +32,8 @@ zsh() {
     PROMPT='${ret_status} %{$fg[cyan]%}%c%{$reset_color%} $(git_prompt_info)'
 }
 
-bash() {
+# The function name should not conflict with any command.
+xiaochen_bash() {
     # we cannot leave the function empty, otherwise it will throw an error
     true
 }
@@ -40,9 +42,9 @@ general
 
 case $SHELL in
 "/bin/zsh")
-    zsh
+    xiaochen_zsh
     ;;
 "/bin/bash")
-    bash
+    xiaochen_bash
     ;;
 esac
