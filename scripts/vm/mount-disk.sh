@@ -20,13 +20,17 @@ if mount | grep $DISK_PATH; then
   exit 0
 fi
 
+# ========================================
+# format disk
+# ========================================
+
 # This step will erase all data on the disk!
-# 
-# format the disk
-# 
 # sudo mkfs.ext4 -m 0 -E lazy_itable_init=0,lazy_journal_init=0,discard $DISK_PATH
 
-# mount the disk
+# ========================================
+# mount disk
+# ========================================
+
 sudo mkdir -p $MOUNT_PATH
 sudo mount -o discard,defaults $DISK_PATH $MOUNT_PATH
 sudo chmod a+w $MOUNT_PATH
