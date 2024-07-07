@@ -85,6 +85,6 @@ echo 'build --remote_cache=http://127.0.0.1:9867' >> .bazelrc.user
 cd $WORKSPACE/cockroach
 ./dev doctor
 bazel clean --expunge
-./dev generate
+./dev gen
 ./dev lint
 ./dev test
