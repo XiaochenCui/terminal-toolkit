@@ -1,19 +1,42 @@
 #!/usr/bin/env bash
 
-# wget -O - https://raw.githubusercontent.com/XiaochenCui/terminal-toolkit/main/scripts/vm/cockroach-ci.sh | bash
+# ========================================
+# Usage
+# ========================================
+
+# wget --no-cache -O - https://raw.githubusercontent.com/XiaochenCui/terminal-toolkit/main/scripts/vm/cockroach-ci.sh | bash
+
+# ========================================
+# Bash Options
+# ========================================
 
 set -o xtrace
 set -o errexit
 set -o nounset
 set -o pipefail
 
+# ========================================
+# Init workspace
+# ========================================
+
 WORKSPACE=/mnt/disks/medium/code
 mkdir -p $WORKSPACE
+
+LIB_DIR=/mnt/disks/medium/lib
+mkdir -p $LIB_DIR
+
+# ========================================
+# Install "bazeliisk" as "bazel"
+# ========================================
 
 cd $WORKSPACE
 wget https://github.com/bazelbuild/bazelisk/releases/download/v1.20.0/bazelisk-linux-amd64
 chmod +x bazelisk-linux-amd64
 sudo ln -sf $WORKSPACE/bazelisk-linux-amd64 /usr/local/bin/bazel
+
+# ========================================
+# Install dependencies
+# ========================================
 
 sudo apt-get update -y
 sudo apt-get install -y gcc
@@ -23,6 +46,10 @@ sudo apt-get install -y cmake
 # handle the error: "cannot execute cc1plus: execvp: No such file or directory"
 sudo apt-get install -y --reinstall g++-13-x86-64-linux-gnu
 
+# ========================================
+# Install library "resolv_wrapper"
+# ========================================
+
 cd $WORKSPACE
 rm -rf resolv_wrapper
 git clone https://git.samba.org/resolv_wrapper.git
@@ -30,22 +57,19 @@ git clone https://git.samba.org/resolv_wrapper.git
 cd $WORKSPACE/resolv_wrapper
 mkdir build
 cd build
-LIB_DIR=$HOME/local/libresolv_wrapper
-mkdir -p $LIB_DIR
-cmake -DCMAKE_INSTALL_PREFIX=$LIB_DIR ..
+LIB_RESOLV_WRAPPER=$LIB_DIR/libresolv_wrapper
+mkdir -p $LIB_RESOLV_WRAPPER
+cmake -DCMAKE_INSTALL_PREFIX=$LIB_RESOLV_WRAPPER ..
 make
 make install
 
-echo "$LIB_DIR/lib" | sudo tee /etc/ld.so.conf.d/local.conf
+echo "$LIB_RESOLV_WRAPPER/lib" | sudo tee /etc/ld.so.conf.d/local.conf
 sudo ldconfig
 ldconfig -p | grep resolv_wrapper
 
-# If the gcc use "ld.gold" as the linker, if may doesn't work with ldconfig.
-# So we need to copy the library to /usr/lib manually.
-#
-# UPDATE: the following approaches don't work.
-# sudo cp $LIB_DIR/lib/* /usr/lib/
-# sudo cp -r ~/local/libresolv_wrapper/lib/* /usr/lib
+# ========================================
+# cockroach
+# ========================================
 
 cd $WORKSPACE
 rm -rf cockroach
