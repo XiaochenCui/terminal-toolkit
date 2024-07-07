@@ -24,6 +24,7 @@ WORKSPACE=$HOME/code
 mkdir -p $WORKSPACE
 
 cd $WORKSPACE
+rm -rf terminal-toolkit
 git clone --depth=1 https://github.com/XiaochenCui/terminal-toolkit.git 
 
 XIAOCHEN_RC="$HOME"/code/terminal-toolkit/scripts/entry/xiaochen-rc
