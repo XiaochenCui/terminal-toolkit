@@ -19,7 +19,7 @@ set -o pipefail
 # Init workspace
 # ========================================
 
-WORKSPACE=/mnt/disks/medium
+WORKSPACE=$HOME
 
 CODE_DIR=$WORKSPACE/code
 mkdir -p $CODE_DIR

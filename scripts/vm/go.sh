@@ -19,7 +19,7 @@ set -o pipefail
 # Init workspace
 # ========================================
 
-WORKSPACE=/mnt/disks/medium
+WORKSPACE=$HOME
 
 CODE_DIR=$WORKSPACE/code
 mkdir -p $CODE_DIR
@@ -38,7 +38,3 @@ cd $BIN_DIR
 
 wget https://golang.org/dl/go1.22.5.linux-amd64.tar.gz
 sudo rm -rf /usr/local/go && sudo tar -C /usr/local -xzf go1.22.5.linux-amd64.tar.gz
-
-# ========================================
-# Install Go (1.
-# ========================================
