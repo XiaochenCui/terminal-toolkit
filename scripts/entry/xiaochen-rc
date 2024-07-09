@@ -44,6 +44,9 @@ case $SHELL in
 "/bin/zsh")
     xiaochen_zsh
     ;;
+"/usr/bin/zsh")
+    xiaochen_zsh
+    ;;
 "/bin/bash")
     xiaochen_bash
     ;;
