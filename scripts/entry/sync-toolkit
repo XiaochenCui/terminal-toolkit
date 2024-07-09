@@ -60,7 +60,7 @@ download() {
     cd $TOOLKIT_DIR
 
     git fetch --all
-    git reset --hard origin/master
+    git reset --hard origin/main
 }
 
 update_rc() {
