@@ -21,13 +21,13 @@ set -o pipefail
 
 WORKSPACE=/mnt/disks/medium
 
-CODE_DIR=/mnt/disks/medium/code
+CODE_DIR=$WORKSPACE/code
 mkdir -p $CODE_DIR
 
-LIB_DIR=/mnt/disks/medium/lib
+LIB_DIR=$WORKSPACE/lib
 mkdir -p $LIB_DIR
 
-BIN_DIR=/mnt/disks/medium/bin
+BIN_DIR=$WORKSPACE/bin
 mkdir -p $BIN_DIR
 
 # ========================================
@@ -44,12 +44,11 @@ sudo ln -sf $BIN_DIR/bazelisk-linux-amd64 /usr/local/bin/bazel
 # ========================================
 
 sudo apt-get update -y
-# sudo apt-get install -y gcc
-# sudo apt-get install -y cmake
 
-# https://stackoverflow.com/questions/73529401/cannot-execute-cc1plus-execvp-no-such-file-or-directory
-# handle the error: "cannot execute cc1plus: execvp: No such file or directory"
-# sudo apt-get install -y --reinstall g++-13-x86-64-linux-gnu
+sudo apt-get install -y gcc g++
+
+# "patchelf" is required use "crosslinux" config in bazel
+sudo apt-get install -y patchelf
 
 # ========================================
 # Install library "resolv_wrapper"
@@ -88,10 +87,16 @@ if [ ! -d "$CODE_DIR/cockroach" ]; then
 
     cd $CODE_DIR/cockroach
     touch .bazelrc.user
-    echo 'build --config=dev' >>.bazelrc.user
+
+    # Use "crosslinux" instead of "def" to avoid error.
+    # 
+    # https://github.com/cockroachdb/cockroach/issues/110799#issuecomment-1731990917
+    echo 'build --config=crosslinux' >>.bazelrc.user
+
     echo 'build --config=lintonbuild' >>.bazelrc.user
     echo 'test --test_tmpdir=/tmp/cockroach' >>.bazelrc.user
-    echo 'build --remote_cache=http://127.0.0.1:9867' >>.bazelrc.user
+
+    # echo 'build --remote_cache=http://127.0.0.1:9867' >>.bazelrc.user
 fi
 
 # ========================================

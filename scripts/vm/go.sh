@@ -21,13 +21,13 @@ set -o pipefail
 
 WORKSPACE=/mnt/disks/medium
 
-CODE_DIR=/mnt/disks/medium/code
+CODE_DIR=$WORKSPACE/code
 mkdir -p $CODE_DIR
 
-LIB_DIR=/mnt/disks/medium/lib
+LIB_DIR=$WORKSPACE/lib
 mkdir -p $LIB_DIR
 
-BIN_DIR=/mnt/disks/medium/bin
+BIN_DIR=$WORKSPACE/bin
 mkdir -p $BIN_DIR
 
 # ========================================
