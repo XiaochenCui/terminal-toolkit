@@ -1,4 +1,14 @@
-#!/usr/bin/env bash
+# Note: we don't use shebang in this script because we want to run it in the current shell environment.
+
+# ========================================
+# Prerequisite
+# ========================================
+
+# install zsh
+# sudo apt-get install -y zsh
+
+# install oh-my-zsh
+# sh -c "$(wget -O- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
 # ========================================
 # Usage
@@ -22,16 +32,6 @@ set -o pipefail
 # ========================================
 
 sudo apt-get update -y
-
-# ========================================
-# ZSH (install manually)
-# ========================================
-
-# install zsh
-sudo apt-get install -y zsh
-
-# install oh-my-zsh
-# sh -c "$(wget -O- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
 # ========================================
 # tmux
@@ -76,4 +76,4 @@ fi
 # sync xiaochen-rc
 $HOME/code/terminal-toolkit/scripts/entry/sync-toolkit
 
-source $XIAOCHEN_RC
+. $XIAOCHEN_RC
