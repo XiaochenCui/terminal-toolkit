@@ -44,16 +44,20 @@ sudo ln -sf $BIN_DIR/bazelisk-linux-amd64 /usr/local/bin/bazel
 # ========================================
 
 sudo apt-get update -y
-sudo apt-get install -y gcc
-sudo apt-get install -y cmake
+# sudo apt-get install -y gcc
+# sudo apt-get install -y cmake
 
 # https://stackoverflow.com/questions/73529401/cannot-execute-cc1plus-execvp-no-such-file-or-directory
 # handle the error: "cannot execute cc1plus: execvp: No such file or directory"
-sudo apt-get install -y --reinstall g++-13-x86-64-linux-gnu
+# sudo apt-get install -y --reinstall g++-13-x86-64-linux-gnu
 
 # ========================================
 # Install library "resolv_wrapper"
 # ========================================
+
+# sudo apt install -y libresolv-wrapper
+
+# The following code are kept to remind how much effort I have put to install "resolv_wrapper" manually and failed.
 
 # cd $WORKSPACE
 # rm -rf resolv_wrapper
