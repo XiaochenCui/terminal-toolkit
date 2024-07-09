@@ -40,6 +40,12 @@ sudo apt-get install -y zsh
 sudo apt-get install -y tmux
 
 # ========================================
+# hstr
+# ========================================
+
+sudo apt-get install -y hstr
+
+# ========================================
 # init workspace
 # ========================================
 
@@ -66,5 +72,8 @@ if ! grep -q "$XIAOCHEN_RC" "$HOME"/.zshrc; then
   echo "# activate xiaochen-rc" >> "$HOME"/.zshrc
   echo "source $XIAOCHEN_RC" >> "$HOME"/.zshrc
 fi
+
+# sync xiaochen-rc
+$HOME/code/terminal-toolkit/scripts/entry/sync-toolkit
 
 source $XIAOCHEN_RC
