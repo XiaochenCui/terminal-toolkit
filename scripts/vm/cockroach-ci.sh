@@ -110,3 +110,4 @@ bazel clean --expunge
 ./dev gen
 ./dev lint
 ./dev test
+./dev build
