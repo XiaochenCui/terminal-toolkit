@@ -15,6 +15,9 @@ general() {
     # Active alias
     source "$HOME"/code/terminal-toolkit/scripts/entry/alias.sh
 
+    # Add binary path: golang
+    export PATH=$PATH:/usr/local/go/bin
+
     # Add binary path: golang bianries ("go install" will install binaries to $HOME/go/bin)
     export PATH=$PATH:$HOME/go/bin
 }
