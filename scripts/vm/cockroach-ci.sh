@@ -95,9 +95,7 @@ if [ ! -d "$CODE_DIR/cockroach" ]; then
 
     echo 'build --config=lintonbuild' >>.bazelrc.user
     echo 'test --test_tmpdir=/tmp/cockroach' >>.bazelrc.user
-
-    # This will be added automatically, no need to add it manually.
-    # echo 'build --remote_cache=http://127.0.0.1:9867' >>.bazelrc.user
+    echo 'build --remote_cache=http://127.0.0.1:9867' >>.bazelrc.user
 fi
 
 # ========================================
