@@ -46,6 +46,12 @@ sudo apt-get install -y tmux
 sudo apt-get install -y hstr
 
 # ========================================
+# tree, ncdu
+# ========================================
+
+sudo apt-get install -y tree ncdu
+
+# ========================================
 # init workspace
 # ========================================
 
