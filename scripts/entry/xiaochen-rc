@@ -24,11 +24,8 @@ general() {
 
 # The function name should not conflict with any command.
 xiaochen_zsh() {
-    # HSTR config
-    alias hh=hstr          # hh to be alias for hstr
-    setopt histignorespace # skip cmds w/ leading space from history
-    export HSTR_CONFIG=hicolor,keywords-matching,raw-history-view,prompt-bottom
-    bindkey -s "\C-r" "\C-a hstr -- \C-j" # bind hstr to Ctrl-r (for Vi mode check doc
+    # Set the "hstr" show at the bottom of the terminal.
+    export HSTR_CONFIG=prompt-bottom
 
     # zsh prompt config
     ret_status="%(?:%{$fg_bold[green]%}🍚 :%{$fg_bold[red]%}🍔 )"
