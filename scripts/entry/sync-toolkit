@@ -63,10 +63,6 @@ download() {
     git reset --hard origin/main
 }
 
-update_rc() {
-    ln -sf $TOOLKIT_DIR/scripts/entry/xiaochen-rc "$HOME"/.xiaochen-rc
-}
-
 update_bin() {
     BINARY_DIR="$HOME"/bin
 
@@ -80,7 +76,5 @@ update_bin() {
 get_env
 
 sync
-
-update_rc
 
 update_bin
