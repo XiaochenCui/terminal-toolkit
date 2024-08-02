@@ -47,7 +47,7 @@ sudo apt-get update -y
 
 sudo apt-get install -y gcc g++
 
-# "patchelf" is required use "crosslinux" config in bazel
+# "patchelf" is required to use "crosslinux" config in bazel
 sudo apt-get install -y patchelf
 
 # ========================================
