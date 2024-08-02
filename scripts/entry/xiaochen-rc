@@ -20,6 +20,9 @@ general() {
 
     # Add binary path: golang bianries ("go install" will install binaries to $HOME/go/bin)
     export PATH=$PATH:$HOME/go/bin
+
+    # Add binary path: ~/bin, which is used to store some custom scripts
+    export PATH=$PATH:$HOME/bin
 }
 
 # The function name should not conflict with any command.
