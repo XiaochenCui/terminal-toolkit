@@ -24,8 +24,8 @@ general() {
 
 # The function name should not conflict with any command.
 xiaochen_zsh() {
-    # Set the "hstr" show at the bottom of the terminal.
-    export HSTR_CONFIG=prompt-bottom
+    # https://github.com/dvorka/hstr/blob/master/CONFIGURATION.md
+    export HSTR_CONFIG=hicolor,keywords-matching,raw-history-view,prompt-bottom
 
     # zsh prompt config
     # ret_status="%(?:%{$fg_bold[green]%}🍚 :%{$fg_bold[red]%}🍔 )"
