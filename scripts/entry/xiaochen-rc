@@ -28,8 +28,8 @@ xiaochen_zsh() {
     export HSTR_CONFIG=prompt-bottom
 
     # zsh prompt config
-    ret_status="%(?:%{$fg_bold[green]%}🍚 :%{$fg_bold[red]%}🍔 )"
-    PROMPT='${ret_status} %{$fg[cyan]%}%c%{$reset_color%} $(git_prompt_info)'
+    # ret_status="%(?:%{$fg_bold[green]%}🍚 :%{$fg_bold[red]%}🍔 )"
+    # PROMPT='${ret_status} %{$fg[cyan]%}%c%{$reset_color%} $(git_prompt_info)'
 }
 
 # The function name should not conflict with any command.
