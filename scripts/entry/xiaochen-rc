@@ -23,6 +23,10 @@ general() {
 
     # Add binary path: ~/bin, which is used to store some custom scripts
     export PATH=$PATH:$HOME/bin
+
+    # Set the default editor to vim.
+    export EDITOR=vim
+    export VISUAL=vim
 }
 
 # The function name should not conflict with any command.
