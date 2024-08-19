@@ -73,8 +73,15 @@ update_bin() {
     ln -sf $TOOLKIT_DIR/scripts/entry/sync-toolkit "$BINARY_DIR"/sync-toolkit
 }
 
+link_rc() {
+    # Link the rc file to the home directory.
+    ln -sf $TOOLKIT_DIR/scripts/entry/xiaochen-rc "$HOME"/.xiaochen-rc
+}
+
 get_env
 
 sync
+
+link_rc
 
 update_bin
