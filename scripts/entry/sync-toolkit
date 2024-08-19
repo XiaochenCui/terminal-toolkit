@@ -9,6 +9,8 @@ set -o errexit
 TOOLKIT_DIR="$HOME/code/terminal-toolkit"
 
 sync() {
+    cd $TOOLKIT_DIR
+
     echo "Start synchronizing..."
 
     # Check if there are uncommitted changes.
