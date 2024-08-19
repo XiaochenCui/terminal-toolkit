@@ -8,34 +8,7 @@ set -o errexit
 
 TOOLKIT_DIR="$HOME/code/terminal-toolkit"
 
-get_env() {
-    # "-s" means "print the kernel name", it's the same as "--kernel-name", which
-    # not supported by macos.
-    OS=$(uname -s)
-
-    echo "Your operation system is ${OS}\n"
-}
-
 sync() {
-    echo "kernal: ${OS}"
-
-    case $OS in
-    Darwin)
-        # Upload if the platform is "Darwin"
-        upload
-        ;;
-    Linux)
-        # Download if the platform is "Linux"
-        download
-        ;;
-    *)
-        echo "Not support your system($OS) for now"
-        exit 2
-        ;;
-    esac
-}
-
-upload() {
     echo "Start synchronizing..."
 
     # Check if there are uncommitted changes.
@@ -56,13 +29,6 @@ upload() {
     git push
 }
 
-download() {
-    cd $TOOLKIT_DIR
-
-    git fetch --all
-    git reset --hard origin/main
-}
-
 update_bin() {
     BINARY_DIR="$HOME"/bin
 
@@ -77,8 +43,6 @@ link_rc() {
     # Link the rc file to the home directory.
     ln -sf $TOOLKIT_DIR/scripts/entry/xiaochen-rc "$HOME"/.xiaochen-rc
 }
-
-get_env
 
 sync
 
