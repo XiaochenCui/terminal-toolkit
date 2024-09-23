@@ -27,6 +27,9 @@ general() {
     # Set the default editor to vim.
     export EDITOR=vim
     export VISUAL=vim
+
+    # Update the PYTHONPATH
+    export PYTHONPATH="$HOME/code/terminal-toolkit/scripts/:$PYTHONPATH"
 }
 
 # The function name should not conflict with any command.
