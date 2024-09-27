@@ -28,7 +28,7 @@ general() {
     export EDITOR=vim
     export VISUAL=vim
 
-    # Update the PYTHONPATH
+    # Update the PYTHONPATH, NB: don't use "~" in the path since it will not be expanded.
     export PYTHONPATH="$HOME/code/terminal-toolkit/scripts/:$PYTHONPATH"
 }
 

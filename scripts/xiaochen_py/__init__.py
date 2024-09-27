@@ -11,6 +11,7 @@ import time
 from typing import Optional, Tuple
 from io import BufferedWriter
 from typing import List, IO
+import logging
 
 
 DRY_RUN = False
@@ -140,5 +141,11 @@ def run_command(
     duration = time.time() - start_time
     if not slient:
         print(f"command finished in {duration:.2f} seconds.")
+
+    if raise_on_failure and process.returncode != 0:
+        logging.error(f"command output: {buffer.getvalue()}")
+        raise subprocess.CalledProcessError(
+            returncode=process.returncode, cmd=command, output=buffer.getvalue()
+        )
 
     return buffer.getvalue(), process.returncode
