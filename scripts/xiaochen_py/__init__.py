@@ -2,7 +2,9 @@
 # 1. Put the parent directory's path in the PYTHONPATH environment variable.
 # 2. Import it using "import xiaochen_py".
 
+import datetime
 import io
+import json
 import os
 import subprocess
 import sys
@@ -90,6 +92,7 @@ def run_command(
         Tuple[str, int]: A tuple containing the output of the command as a string and the exit code of the process.
     """
     if DRY_RUN:
+        print(f"(dry run) command: {command}")
         return bytes(), 0
 
     if not slient:
@@ -149,3 +152,57 @@ def run_command(
         )
 
     return buffer.getvalue(), process.returncode
+
+
+def timestamp() -> str:
+    """
+    Return the current timestamp that can be used in file names.
+    """
+    return datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
+
+
+def get_dir_size(path: str) -> int:
+    """
+    Return the total size of all files in the given directory.
+
+    Args:
+    """
+    total_size = 0
+
+    for dirpath, dirnames, filenames in os.walk(path):
+        for f in filenames:
+            fp = os.path.join(dirpath, f)
+            total_size += os.path.getsize(fp)
+
+    return total_size
+
+
+class BenchmarkRecord:
+    record_time: str
+    target_attributes: dict[str, object]
+    test_result: dict[str, object]
+
+    def __init__(self, **kwargs):
+        self.record_time = datetime.datetime.now().isoformat()
+        self.__dict__.update(kwargs)
+
+    def __repr__(self):
+        return f"{self.record_time}, {self.target_attributes}, {self.test_result}"
+
+
+def dump_records(records: List[BenchmarkRecord], dir_path: str):
+    records_json = json.dumps(records, default=lambda x: x.__dict__, indent=4)
+    record_path = os.path.join(
+        dir_path,
+        f"benchmark_{datetime.datetime.now().strftime('%Y%m%d_%H%M%S')}.json",
+    )
+
+    with open(record_path, "w") as f:
+        f.write(records_json)
+
+
+def json_loader(**kwargs):
+    if "record_time" in kwargs:
+        return BenchmarkRecord(**kwargs)
+
+    return kwargs
