@@ -14,6 +14,7 @@ from typing import Optional, Tuple
 from io import BufferedWriter
 from typing import List, IO
 import logging
+import signal
 
 
 DRY_RUN = False
@@ -70,10 +71,11 @@ def run_command(
     command: str,
     include_stderr: bool = True,
     log_path: Optional[str] = None,
-    stream_output: bool = False,
+    stream_output: bool = True,
     kill_on_output: Optional[str] = None,
     raise_on_failure: bool = True,
     slient: bool = False,
+    work_dir: Optional[str] = None,
 ) -> Tuple[bytes, int]:
     """
     Run a shell command and return its output and exit code.
@@ -91,6 +93,9 @@ def run_command(
     Returns:
         Tuple[str, int]: A tuple containing the output of the command as a string and the exit code of the process.
     """
+    if work_dir:
+        os.chdir(work_dir)
+
     if DRY_RUN:
         print(f"(dry run) command: {command}")
         return bytes(), 0
@@ -152,6 +157,51 @@ def run_command(
         )
 
     return buffer.getvalue(), process.returncode
+
+
+class Process:
+    pid: int
+
+    def __init__(self, pid: int):
+        self.pid = pid
+
+    def exit(self):
+        """
+        Terminate the process.
+        """
+        try:
+            os.kill(self.pid, signal.SIGTERM)
+        except ProcessLookupError:
+            pass
+
+
+def run_background(
+    command: str, log_path: Optional[str] = None, work_dir: Optional[str] = None
+) -> Process:
+    """
+    Run a shell command in the background and return its PID.
+
+    Args:
+        command (str): The shell command to execute.
+        log_path (Optional[str], optional): The file path where output will be written in real-time. If None, no file is written.
+        work_dir (Optional[str], optional): The directory to run the command in. If None, uses the current directory.
+
+    Returns:
+        int: The PID of the background process.
+    """
+    if work_dir:
+        os.chdir(work_dir)
+
+    if DRY_RUN:
+        print(f"(dry run) command: {command}")
+        return Process(-1)
+
+    print(f"running command in background: {command}")
+    with open(log_path, "w") if log_path else subprocess.DEVNULL as log_file:
+        process = subprocess.Popen(
+            command, shell=True, stdout=log_file, stderr=log_file
+        )
+    return Process(process.pid)
 
 
 def timestamp() -> str:
