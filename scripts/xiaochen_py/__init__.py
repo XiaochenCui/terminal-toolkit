@@ -6,6 +6,7 @@ import datetime
 import io
 import json
 import os
+import re
 import subprocess
 import sys
 import threading
@@ -93,11 +94,14 @@ def run_command(
     Returns:
         Tuple[str, int]: A tuple containing the output of the command as a string and the exit code of the process.
     """
+    original_dir = os.getcwd()
+
     if work_dir:
         os.chdir(work_dir)
 
     if DRY_RUN:
         print(f"(dry run) command: {command}")
+        os.chdir(original_dir)
         return bytes(), 0
 
     if not slient:
@@ -156,6 +160,7 @@ def run_command(
             returncode=process.returncode, cmd=command, output=buffer.getvalue()
         )
 
+    os.chdir(original_dir)
     return buffer.getvalue(), process.returncode
 
 
@@ -170,7 +175,13 @@ class Process:
         Terminate the process.
         """
         try:
-            os.kill(self.pid, signal.SIGTERM)
+            print(f"terminating process {self.pid}")
+
+            # the normal kill
+            # os.kill(self.pid, signal.SIGTERM)
+
+            # the force kill
+            os.kill(self.pid, signal.SIGKILL)
         except ProcessLookupError:
             pass
 
@@ -189,18 +200,26 @@ def run_background(
     Returns:
         int: The PID of the background process.
     """
+    original_dir = os.getcwd()
+
     if work_dir:
         os.chdir(work_dir)
 
     if DRY_RUN:
         print(f"(dry run) command: {command}")
+        os.chdir(original_dir)
         return Process(-1)
 
     print(f"running command in background: {command}")
-    with open(log_path, "w") if log_path else subprocess.DEVNULL as log_file:
-        process = subprocess.Popen(
-            command, shell=True, stdout=log_file, stderr=log_file
-        )
+    if log_path:
+        with open(log_path, "w") as log_file:
+            process = subprocess.Popen(
+                command, shell=True, stdout=log_file, stderr=log_file
+            )
+    else:
+        process = subprocess.Popen(command, shell=True, stdout=subprocess.DEVNULL)
+
+    os.chdir(original_dir)
     return Process(process.pid)
 
 
@@ -249,6 +268,21 @@ def dump_records(records: List[BenchmarkRecord], dir_path: str):
 
     with open(record_path, "w") as f:
         f.write(records_json)
+
+
+def get_latest_report(report_dir: str) -> str:
+    report_files = os.listdir(report_dir)
+
+    # sort by the time in the file name in descending order
+    #
+    # example of file name: docs/record/benchmark_20240527_220536.json
+    def sort_key(x):
+        result = re.findall(r"\d+_\d+", x)[0]
+        tm = datetime.datetime.strptime(result, "%Y%m%d_%H%M%S")
+        return tm
+
+    report_files.sort(key=lambda x: sort_key(x), reverse=True)
+    return os.path.join(report_dir, report_files[0])
 
 
 def json_loader(**kwargs):
