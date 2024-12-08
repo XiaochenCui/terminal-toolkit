@@ -23,9 +23,9 @@ DRY_RUN = False
 
 # Configure the logging system
 logging.basicConfig(
-    level=logging.INFO,  # Set the log level to INFO
-    format="%(asctime)s - %(levelname)s - %(message)s",  # Set the format of the log
-    stream=sys.stdout,  # Ensure it logs to stdout
+    level=logging.DEBUG,
+    format='[%(asctime)s] [%(levelname)s] [%(filename)s:%(lineno)d] %(message)s',
+    datefmt='%Y-%m-%d %H:%M:%S'
 )
 
 
