@@ -24,8 +24,8 @@ DRY_RUN = False
 # Configure the logging system
 logging.basicConfig(
     level=logging.DEBUG,
-    format='[%(asctime)s] [%(levelname)s] [%(filename)s:%(lineno)d] %(message)s',
-    datefmt='%Y-%m-%d %H:%M:%S'
+    format="[%(asctime)s] [%(levelname)s] [%(filename)s:%(lineno)d] %(message)s",
+    datefmt="%Y-%m-%d %H:%M:%S",
 )
 
 
@@ -71,6 +71,7 @@ def tee_output(process, writers):
 def run_command(
     command: str,
     include_stderr: bool = True,
+    capture_tty: bool = False,
     log_path: Optional[str] = None,
     stream_output: bool = True,
     kill_on_output: Optional[str] = None,
@@ -112,6 +113,11 @@ def run_command(
     stderr_target = None
     if include_stderr:
         stderr_target = subprocess.STDOUT
+
+    if capture_tty:
+        if "'" in command:
+            raise RuntimeError("single quote found in command, which is not supported")
+        command = f"script -c '{command}'"
 
     # explaination of args:
     # - "shell=True" makes us can use a string for "command", a list of string
@@ -161,6 +167,7 @@ def run_command(
         )
 
     os.chdir(original_dir)
+
     return buffer.getvalue(), process.returncode
 
 
@@ -244,6 +251,23 @@ def get_dir_size(path: str) -> int:
             total_size += os.path.getsize(fp)
 
     return total_size
+
+
+class FileInfo:
+    size: int
+
+    def __init__(self, size: int):
+        self.size = size
+
+
+def get_file_info(file_path: str) -> FileInfo:
+    """
+    Return the file size of the given file.
+
+    Args:
+    - file_path: The path to the file.
+    """
+    return FileInfo(os.path.getsize(file_path))
 
 
 class BenchmarkRecord:

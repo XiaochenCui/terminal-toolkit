@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
+import datetime
 import logging
 import re
 
@@ -34,6 +35,7 @@ def run():
     logging.debug(f"client_env: {last_command.client_env}")
     logging.debug(f"server_args: {last_command.server_args}")
     logging.debug(f"target_args: {last_command.target_args}")
+    logging.debug(f"timestamp: {last_command.timestamp.astimezone()}")
 
 
 class BazelCommands:
@@ -44,9 +46,26 @@ class BazelCommands:
     # args that passed to the target binary
     target_args: list[str]
     # for debugging
-    primitive_args: str
+    primitive_args: list[str]
+    full_command: str
+    timestamp: datetime
 
     def __init__(self, full_command: str):
+        self.full_command = full_command
+
+        # parse the timestamp
+        # 241208 15:02:50.151:I 1408
+
+        pattern = re.compile(r"(\d{6} \d{2}:\d{2}:\d{2}.\d{3}):I \d+")
+        match = pattern.match(full_command)
+        if not match:
+            logging.error(f"failed to match timestamp: {full_command}")
+            raise ValueError
+        self.timestamp = datetime.datetime.strptime(
+            match.group(1), "%y%m%d %H:%M:%S.%f"
+        )
+        self.timestamp = self.timestamp.replace(tzinfo=datetime.timezone.utc)
+
         parts = full_command.split(MARK)
         if len(parts) != 2:
             logging.error(f"failed to split entry: {full_command}")
