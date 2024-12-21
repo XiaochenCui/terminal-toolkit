@@ -59,7 +59,10 @@ sudo make install
 # tree, ncdu
 # ========================================
 
-sudo dnf install -y tree ncdu
+sudo dnf install -y tree 
+
+# dnf cannot find ncdu
+# sudo dnf install -y ncdu
 
 # ========================================
 # init workspace
