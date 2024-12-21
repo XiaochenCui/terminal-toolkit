@@ -87,7 +87,7 @@ git clone --depth=1 https://github.com/XiaochenCui/terminal-toolkit.git
 # activate xiaochen-rc
 # ========================================
 
-XIAOCHEN_RC="$HOME"/.xiaochen-rc
+XIAOCHEN_RC="$HOME"/.xiaochen-rc.sh
 
 # insert xiaochen-rc to .zshrc
 if ! grep -q "$XIAOCHEN_RC" "$HOME"/.zshrc; then
