@@ -11,7 +11,7 @@ TOOLKIT_DIR="$HOME/code/terminal-toolkit"
 sync() {
     cd $TOOLKIT_DIR
 
-    echo "Start synchronizing..."
+    echo "start synchronizing..."
 
     # Check if there are uncommitted changes.
     #
@@ -20,7 +20,7 @@ sync() {
     #
     # Check the exit status of the command
     if ! git diff-index --quiet HEAD --; then
-        echo "Workspace unclean, commit staff..."
+        echo "workspace unclean, commit staff..."
         git add --all
         git commit -m "update"
     fi
@@ -38,15 +38,19 @@ update_bin() {
     [[ -d "$BINARY_DIR" ]] || mkdir "$BINARY_DIR"
 
     # Add "sync-toolkit" command, used to synchronize the toolkit.
-    ln -sf $TOOLKIT_DIR/scripts/entry/sync-toolkit "$BINARY_DIR"/sync-toolkit
+    ln -sf $TOOLKIT_DIR/scripts/entry/sync-toolkit.sh "$BINARY_DIR"/sync-toolkit.sh
 }
 
 link_rc() {
     # Link the rc file to the home directory.
-    ln -sf $TOOLKIT_DIR/scripts/entry/xiaochen-rc "$HOME"/.xiaochen-rc
+    ln -sf $TOOLKIT_DIR/scripts/entry/xiaochen-rc.sh "$HOME"/.xiaochen-rc.sh
 }
 
-sync
+if git config --get user.name &> /dev/null; then
+    sync
+else
+    echo "git user.name not set, skip synchronization..."
+fi
 
 link_rc
 
