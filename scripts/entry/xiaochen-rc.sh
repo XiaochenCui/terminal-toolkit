@@ -34,6 +34,9 @@ general() {
 
 # The function name should not conflict with any command.
 xiaochen_zsh() {
+    # don't add "hh --show-configuration" to here since the output various on
+    # different linux distributions.
+
     # https://github.com/dvorka/hstr/blob/master/CONFIGURATION.md
     export HSTR_CONFIG=hicolor,keywords-matching,raw-history-view,prompt-bottom
 
