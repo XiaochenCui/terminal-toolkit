@@ -52,8 +52,8 @@ if ! hstr --version &> /dev/null; then
 
     # ref:
     # https://github.com/dvorka/hstr/blob/master/INSTALLATION.md#build-on-any-linux-distro
-    rm -rf ./hstr
-    git clone https://github.com/dvorka/hstr.git
+    rm -rf ~/hstr
+    git clone https://github.com/dvorka/hstr.git ~/hstr
     cd ./hstr/build/tarball && ./tarball-automake.sh && cd ../..
     ./configure && make
     sudo make install
