@@ -14,6 +14,7 @@
 # Usage
 # ========================================
 
+# --no-cache: prevent wget from using cache
 # wget --no-cache -O - https://raw.githubusercontent.com/XiaochenCui/terminal-toolkit/main/scripts/setup/ubuntu.sh | zsh
 
 # ========================================
@@ -85,6 +86,6 @@ if ! grep -q "$XIAOCHEN_RC" "$HOME"/.zshrc; then
 fi
 
 # sync xiaochen-rc
-$HOME/code/terminal-toolkit/scripts/entry/sync-toolkit
+$HOME/code/terminal-toolkit/scripts/entry/sync-toolkit.sh
 
 . $XIAOCHEN_RC
