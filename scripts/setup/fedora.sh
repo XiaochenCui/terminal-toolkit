@@ -51,7 +51,8 @@ sudo dnf install -y tmux
 # https://github.com/dvorka/hstr/blob/master/INSTALLATION.md#build-on-any-linux-distro
 git clone https://github.com/dvorka/hstr.git
 cd ./hstr/build/tarball && ./tarball-automake.sh && cd ../..
-./configure && make && make install
+./configure && make
+sudo make install
 
 # ========================================
 # tree, ncdu
