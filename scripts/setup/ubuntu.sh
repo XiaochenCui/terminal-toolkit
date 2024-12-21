@@ -1,7 +1,7 @@
 # Note: we don't use shebang in this script because we want to run it in the current shell environment.
 
 # ========================================
-# Prerequisite
+# Prerequisite (must be executed manually)
 # ========================================
 
 # install zsh
