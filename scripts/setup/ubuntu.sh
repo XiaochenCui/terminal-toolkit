@@ -14,7 +14,7 @@
 # Usage
 # ========================================
 
-# wget --no-cache -O - https://raw.githubusercontent.com/XiaochenCui/terminal-toolkit/main/scripts/install/ubuntu.sh | zsh
+# wget --no-cache -O - https://raw.githubusercontent.com/XiaochenCui/terminal-toolkit/main/scripts/setup/ubuntu.sh | zsh
 
 # ========================================
 # Bash Options
