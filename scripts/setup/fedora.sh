@@ -44,16 +44,20 @@ sudo dnf install -y tmux
 # hstr
 # ========================================
 
-# dnf cannot find hstr
-# sudo dnf install -y hstr
+# install hstr if not exist
+if ! hstr --version &> /dev/null; then
 
-# ref:
-# https://github.com/dvorka/hstr/blob/master/INSTALLATION.md#build-on-any-linux-distro
-rm -rf ./hstr
-git clone https://github.com/dvorka/hstr.git
-cd ./hstr/build/tarball && ./tarball-automake.sh && cd ../..
-./configure && make
-sudo make install
+    # dnf cannot find hstr
+    # sudo dnf install -y hstr
+
+    # ref:
+    # https://github.com/dvorka/hstr/blob/master/INSTALLATION.md#build-on-any-linux-distro
+    rm -rf ./hstr
+    git clone https://github.com/dvorka/hstr.git
+    cd ./hstr/build/tarball && ./tarball-automake.sh && cd ../..
+    ./configure && make
+    sudo make install
+fi
 
 # ========================================
 # tree, ncdu
