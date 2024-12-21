@@ -43,7 +43,12 @@ sudo apt-get install -y tmux
 # hstr
 # ========================================
 
-sudo apt-get install -y hstr
+# install hstr if not exist
+if ! hstr --version &>/dev/null; then
+  sudo apt-get install -y hstr
+
+  hh --show-configuration >>~/.zshrc
+fi
 
 # ========================================
 # tree, ncdu
@@ -64,7 +69,7 @@ mkdir -p $WORKSPACE
 
 cd $WORKSPACE
 rm -rf terminal-toolkit
-git clone --depth=1 https://github.com/XiaochenCui/terminal-toolkit.git 
+git clone --depth=1 https://github.com/XiaochenCui/terminal-toolkit.git
 
 # ========================================
 # activate xiaochen-rc
@@ -74,9 +79,9 @@ XIAOCHEN_RC="$HOME"/.xiaochen-rc.sh
 
 # insert xiaochen-rc to .zshrc
 if ! grep -q "$XIAOCHEN_RC" "$HOME"/.zshrc; then
-  echo "" >> "$HOME"/.zshrc
-  echo "# activate xiaochen-rc" >> "$HOME"/.zshrc
-  echo "source $XIAOCHEN_RC" >> "$HOME"/.zshrc
+  echo "" >>"$HOME"/.zshrc
+  echo "# activate xiaochen-rc" >>"$HOME"/.zshrc
+  echo "source $XIAOCHEN_RC" >>"$HOME"/.zshrc
 fi
 
 # sync xiaochen-rc

@@ -48,25 +48,26 @@ sudo dnf install -y tmux
 # ========================================
 
 # install hstr if not exist
-if ! hstr --version &> /dev/null; then
+if ! hstr --version &>/dev/null; then
+  # dnf cannot find hstr
+  # sudo dnf install -y hstr
 
-    # dnf cannot find hstr
-    # sudo dnf install -y hstr
+  # ref:
+  # https://github.com/dvorka/hstr/blob/master/INSTALLATION.md#build-on-any-linux-distro
+  rm -rf ~/hstr
+  git clone https://github.com/dvorka/hstr.git ~/hstr
+  cd ./hstr/build/tarball && ./tarball-automake.sh && cd ../..
+  ./configure && make
+  sudo make install
 
-    # ref:
-    # https://github.com/dvorka/hstr/blob/master/INSTALLATION.md#build-on-any-linux-distro
-    rm -rf ~/hstr
-    git clone https://github.com/dvorka/hstr.git ~/hstr
-    cd ./hstr/build/tarball && ./tarball-automake.sh && cd ../..
-    ./configure && make
-    sudo make install
+  hh --show-configuration >>~/.zshrc
 fi
 
 # ========================================
 # tree, ncdu
 # ========================================
 
-sudo dnf install -y tree 
+sudo dnf install -y tree
 
 # dnf cannot find ncdu
 # sudo dnf install -y ncdu
@@ -84,7 +85,7 @@ mkdir -p $WORKSPACE
 
 cd $WORKSPACE
 rm -rf terminal-toolkit
-git clone --depth=1 https://github.com/XiaochenCui/terminal-toolkit.git 
+git clone --depth=1 https://github.com/XiaochenCui/terminal-toolkit.git
 
 # ========================================
 # activate xiaochen-rc
@@ -94,9 +95,9 @@ XIAOCHEN_RC="$HOME"/.xiaochen-rc.sh
 
 # insert xiaochen-rc to .zshrc
 if ! grep -q "$XIAOCHEN_RC" "$HOME"/.zshrc; then
-  echo "" >> "$HOME"/.zshrc
-  echo "# activate xiaochen-rc" >> "$HOME"/.zshrc
-  echo "source $XIAOCHEN_RC" >> "$HOME"/.zshrc
+  echo "" >>"$HOME"/.zshrc
+  echo "# activate xiaochen-rc" >>"$HOME"/.zshrc
+  echo "source $XIAOCHEN_RC" >>"$HOME"/.zshrc
 fi
 
 # sync xiaochen-rc
