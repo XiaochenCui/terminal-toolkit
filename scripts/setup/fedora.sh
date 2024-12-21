@@ -5,7 +5,7 @@
 # ========================================
 
 # # install zsh
-# sudo apt-get install -y zsh
+# sudo dnf install -y zsh
 
 # # install oh-my-zsh
 # sh -c "$(wget -O- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
@@ -14,7 +14,7 @@
 # Usage
 # ========================================
 
-# wget --no-cache -O - https://raw.githubusercontent.com/XiaochenCui/terminal-toolkit/main/scripts/setup/ubuntu.sh | zsh
+# wget --no-cache -O - https://raw.githubusercontent.com/XiaochenCui/terminal-toolkit/main/scripts/setup/fedora.sh | zsh
 
 # ========================================
 # Bash Options
@@ -28,28 +28,28 @@ set -o pipefail
 # set -o nounset
 
 # ========================================
-# Apt update
+# DNF update
 # ========================================
 
-sudo apt-get update -y
+sudo dnf update -y
 
 # ========================================
 # tmux
 # ========================================
 
-sudo apt-get install -y tmux
+sudo dnf install -y tmux
 
 # ========================================
 # hstr
 # ========================================
 
-sudo apt-get install -y hstr
+sudo dnf install -y hstr
 
 # ========================================
 # tree, ncdu
 # ========================================
 
-sudo apt-get install -y tree ncdu
+sudo dnf install -y tree ncdu
 
 # ========================================
 # init workspace
