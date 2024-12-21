@@ -14,6 +14,7 @@
 # Usage
 # ========================================
 
+# --no-cache: prevent wget from using cache
 # wget --no-cache -O - https://raw.githubusercontent.com/XiaochenCui/terminal-toolkit/main/scripts/setup/fedora.sh | zsh
 
 # ========================================
