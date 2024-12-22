@@ -48,7 +48,7 @@ sudo apt-get install -y tmux
 if ! hstr --version &>/dev/null; then
   sudo apt-get install -y hstr
 
-  hh --show-configuration >>~/.zshrc
+  hstr --show-configuration >>~/.zshrc
 fi
 
 # ========================================
