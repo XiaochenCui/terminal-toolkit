@@ -60,7 +60,7 @@ if ! hstr --version &>/dev/null; then
   ./configure && make
   sudo make install
 
-  hh --show-configuration >>~/.zshrc
+  hstr --show-configuration >>~/.zshrc
 fi
 
 # ========================================
