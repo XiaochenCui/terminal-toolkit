@@ -50,7 +50,8 @@ def tee_print(input_str: str, writers: List[IO]):
         writer.flush()
 
 
-def tee_output(process, writers):
+# def tee_output(process, writers):
+def tee_output(process: subprocess.Popen, writers: List[IO]):
     """
     Capture the subprocess output, write it to multiple writers simultaneously.
 
@@ -58,10 +59,12 @@ def tee_output(process, writers):
     - process: The subprocess.Popen object.
     - writers: A list of file-like objects (e.g., sys.stdout, file, BytesIO) to write the output to.
     """
+
+    # b"" indicates the end of the iteration.
+    # (The iteration stops when process.stdout.readline returns b"".)
     for line in iter(process.stdout.readline, b""):
         for writer in writers:
             if isinstance(writer, io.TextIOWrapper):
-                # print(f"type of writer: {type(writer)}")
                 writer.write(line.decode("utf-8"))
             else:
                 writer.write(line)
@@ -95,6 +98,7 @@ def run_command(
     Returns:
         Tuple[str, int]: A tuple containing the output of the command as a string and the exit code of the process.
     """
+
     original_dir = os.getcwd()
 
     if work_dir:
@@ -135,6 +139,21 @@ def run_command(
         bufsize=1000,
     )
 
+    def signal_handler(sig, frame):
+        logging.debug(f"get signal: {sig}({signal.strsignal(sig)}), frame: {frame}")
+        if sig == signal.SIGINT:
+            # kill the process when get SIGINT
+            logging.debug("got SIGINT, killing the process")
+        process.kill()
+
+    # NB: SIGKILL cannot be caught, blocked, or ignored.
+    # https://docs.python.org/3/library/signal.html#signal.SIGKILL
+    signal.signal(signal.SIGINT, signal_handler)
+    # SIG_DFL is the default signal handler, which is the default behavior of the
+    # system.
+    # https://docs.python.org/3/library/signal.html#signal.SIG_DFL
+    signal.signal(signal.SIGINT, signal.SIG_DFL)
+
     writers = []
     if stream_output:
         writers.append(sys.stdout.buffer)
@@ -161,7 +180,8 @@ def run_command(
         print(f"command finished in {duration:.2f} seconds.")
 
     if raise_on_failure and process.returncode != 0:
-        logging.error(f"command output: {buffer.getvalue()}")
+        # logging.error(f"command output: {buffer.getvalue().decode('utf-8')}")
+        logging.error(f"return code: {process.returncode}")
         raise subprocess.CalledProcessError(
             returncode=process.returncode, cmd=command, output=buffer.getvalue()
         )
@@ -314,3 +334,12 @@ def json_loader(**kwargs):
         return BenchmarkRecord(**kwargs)
 
     return kwargs
+
+
+def process_stopped(process: subprocess.Popen):
+    status = process.poll()
+    if status is None:
+        return False
+    else:
+        logging.debug(f"Process finished with exit code {status}")
+        return True
