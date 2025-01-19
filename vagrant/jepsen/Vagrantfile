@@ -18,14 +18,19 @@ Vagrant.configure("2") do |config|
       # install necessary packages
       node.vm.provision "shell", inline: <<-SHELL
         sudo apt-get update
+
+        # ifconfig
         sudo apt-get install -y net-tools
       SHELL
 
       # default user: vagrant, password: vagrant
       # ssh from host machine: ssh vagrant@192.168.56.10#{i}
       node.vm.provision "shell", inline: <<-SHELL
+        # enable password authentication
         sudo sed -i 's/^#PasswordAuthentication yes/PasswordAuthentication yes/' /etc/ssh/sshd_config
         sudo sed -i 's/^PasswordAuthentication no/#PasswordAuthentication no/' /etc/ssh/sshd_config
+
+        # NOTE: use "ssh" instead of "sshd" for this box
         sudo systemctl restart ssh
       SHELL
     end
