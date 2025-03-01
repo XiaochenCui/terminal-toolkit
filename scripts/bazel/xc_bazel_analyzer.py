@@ -20,6 +20,7 @@ def run():
         return
 
     server_log_path = output.decode("utf-8").strip()
+    logging.info(f"server log path: {server_log_path}")
 
     file = open(server_log_path, "r")
     lines = file.readlines()
